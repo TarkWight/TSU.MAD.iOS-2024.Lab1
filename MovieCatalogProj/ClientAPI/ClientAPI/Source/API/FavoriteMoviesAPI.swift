@@ -32,5 +32,28 @@ open class FavoriteMoviesAPI {
             }
     }
     
+    open class func addFavorite(movieId: UUID, completion: @escaping (_ error: Error?) -> Void) {
+        guard let token = KeychainManager.shared.getToken() else {
+            print("No token found")
+            completion(NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "No token found"]))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+        
+        AF.request(ApiUrls.FavoriteMovies.movieIdAdd(movieId: movieId), method: .post, headers: headers)
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    completion(nil)
+                case .failure(let error):
+                    completion(error)
+                }
+            }
+    }
+    
    
 }
