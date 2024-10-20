@@ -9,7 +9,7 @@ import Foundation
 
 public enum ApiUrls {
     private static let baseURL: String = "https://react-midterm.kreosoft.space/api"
-    
+
     public enum Auth {
         static let login = "\(baseURL)/account/login"
         static let register = "\(baseURL)/account/register"
