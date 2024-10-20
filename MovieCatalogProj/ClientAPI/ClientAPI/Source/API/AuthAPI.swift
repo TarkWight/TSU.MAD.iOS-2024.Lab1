@@ -41,4 +41,31 @@ open class AuthAPI {
         }
     }
     
+    // MARK: - Logout
+    
+    /**
+     Logs out the current user.
+     
+     - Parameters:
+     - completion: The closure to call with the result.
+     */
+    open class func logout(
+        completion: @escaping (_ success: Bool, _ error: Error?) -> Void
+    ) {
+        let url = ApiUrls.Auth.logout
+        
+        AF.request(
+            url,
+            method: .post
+        )
+        .validate()
+        .response { response in
+            switch response.result {
+                case .success:
+                    completion(true, nil)
+                case .failure(let error):
+                    completion(false, error)
+            }
+        }
+    }
 }
