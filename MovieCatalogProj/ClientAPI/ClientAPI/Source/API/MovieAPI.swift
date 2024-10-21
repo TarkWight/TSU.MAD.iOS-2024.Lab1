@@ -1,0 +1,37 @@
+//
+//  MovieAPI.swift
+//  ClientAPI
+//
+//  Created by Tark Wight on 15.10.2024.
+//
+
+internal import Alamofire
+
+open class MovieAPI {
+
+    open class func getMovies(page: Int, completion: @escaping (_ data: MoviesPagedListModel?, _ error: Error?) -> Void) {
+        guard let token = KeychainManager.shared.getToken() else {
+            print("No token found")
+            completion(nil, NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "No token found"]))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+        
+        AF.request(ApiUrls.Movies.page(page: Int32(page)), headers: headers)
+            .validate()
+            .responseDecodable(of: MoviesPagedListModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completion(data, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
+    
+    
+}
+
