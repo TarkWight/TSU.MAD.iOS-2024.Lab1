@@ -32,6 +32,28 @@ open class MovieAPI {
             }
     }
     
+    open class func getMovieDetails(movieId: UUID, completion: @escaping (_ data: MovieDetailsModel?, _ error: Error?) -> Void) {
+        guard let token = KeychainManager.shared.getToken() else {
+            print("No token found")
+            completion(nil, NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "No token found"]))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)"
+        ]
+        
+        AF.request(ApiUrls.Movies.details(movieId: movieId), headers: headers)
+            .validate()
+            .responseDecodable(of: MovieDetailsModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completion(data, nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+            }
+    }
     
 }
 
