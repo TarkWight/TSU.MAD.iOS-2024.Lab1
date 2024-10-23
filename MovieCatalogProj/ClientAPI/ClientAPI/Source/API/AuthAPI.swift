@@ -10,19 +10,11 @@ internal import Alamofire
 open class AuthAPI {
     
     // MARK: - Login
-    
-    /**
-     Logs in a user with the provided credentials.
-     
-     - Parameters:
-       - body: The login credentials.
-       - completion: The closure to call with the result.
-     */
     open class func login(
         body: LoginCredentials,
         completion: @escaping (_ success: Bool, _ error: Error?) -> Void
     ) {
-        let url = ApiUrls.Auth.login
+        let url = APIEndpoint.Auth.login
         
         AF.request(
             url,
@@ -50,19 +42,11 @@ open class AuthAPI {
     }
     
     // MARK: - Register
-    
-    /**
-     Registers a new user with the provided details.
-     
-     - Parameters:
-       - body: The registration details.
-       - completion: The closure to call with the result.
-     */
     open class func register(
         body: UserRegisterModel,
         completion: @escaping (_ success: Bool, _ error: Error?) -> Void
     ) {
-        let url = ApiUrls.Auth.register
+        let url = APIEndpoint.Auth.register
         
         AF.request(
             url,
@@ -90,17 +74,10 @@ open class AuthAPI {
     }
     
     // MARK: - Logout
-    
-    /**
-     Logs out the current user.
-     
-     - Parameters:
-       - completion: The closure to call with the result.
-     */
     open class func logout(
         completion: @escaping (_ success: Bool, _ error: Error?) -> Void
     ) {
-        let url = ApiUrls.Auth.logout
+        let url = APIEndpoint.Auth.logout
         
         guard let token = KeychainManager.shared.getToken() else {
             completion(false, NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "No token found"]))

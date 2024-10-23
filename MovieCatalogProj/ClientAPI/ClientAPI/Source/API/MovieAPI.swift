@@ -20,7 +20,7 @@ open class MovieAPI {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request(ApiUrls.Movies.page(page: Int32(page)), headers: headers)
+        AF.request(APIEndpoint.Movies.page(page: Int32(page)), headers: headers)
             .validate()
             .responseDecodable(of: MoviesPagedListModel.self) { response in
                 switch response.result {
@@ -43,7 +43,7 @@ open class MovieAPI {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request(ApiUrls.Movies.details(movieId: movieId), headers: headers)
+        AF.request(APIEndpoint.Movies.details(movieId: movieId), headers: headers)
             .validate()
             .responseDecodable(of: MovieDetailsModel.self) { response in
                 switch response.result {

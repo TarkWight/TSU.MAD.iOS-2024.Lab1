@@ -1,5 +1,5 @@
 //
-//  ApiUrls.swift
+//  APIEndpoint.swift
 //  ClientAPI
 //
 //  Created by Tark Wight on 14.10.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ApiUrls {
+public enum APIEndpoint {
     private static let baseURL: String = "https://react-midterm.kreosoft.space/api"
 
     public enum Auth {
@@ -40,10 +40,10 @@ public enum ApiUrls {
             return "\(baseURL)/movie/\(movieId.uuidString)/review/add"
         }
         static func reviewEdit(movieId: UUID, rewiewId: UUID) -> String {
-            return "\(baseURL)/movie/\(movieId.uuidString)/rewiew/\(rewiewId.uuidString)/edit"
+            return "\(baseURL)/movie/\(movieId.uuidString)/review/\(rewiewId.uuidString)/edit"
         }
         static func reviewDelete(movieId: UUID, rewiewId: UUID) -> String {
-            return "\(baseURL)/movie/\(movieId.uuidString)/rewiew/\(rewiewId.uuidString)/delete"
+            return "\(baseURL)/movie/\(movieId.uuidString)/review/\(rewiewId.uuidString)/delete"
         }
     }
     

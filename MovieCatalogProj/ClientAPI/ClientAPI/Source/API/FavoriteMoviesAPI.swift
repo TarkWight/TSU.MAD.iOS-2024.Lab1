@@ -20,7 +20,7 @@ open class FavoriteMoviesAPI {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request(ApiUrls.FavoriteMovies.favorites, headers: headers)
+        AF.request(APIEndpoint.FavoriteMovies.favorites, headers: headers)
             .validate()
             .responseDecodable(of: MoviesListModel.self) { response in
                 switch response.result {
@@ -43,7 +43,7 @@ open class FavoriteMoviesAPI {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request(ApiUrls.FavoriteMovies.movieIdAdd(movieId: movieId), method: .post, headers: headers)
+        AF.request(APIEndpoint.FavoriteMovies.movieIdAdd(movieId: movieId), method: .post, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
@@ -66,7 +66,7 @@ open class FavoriteMoviesAPI {
             "Authorization": "Bearer \(token)"
         ]
         
-        AF.request(ApiUrls.FavoriteMovies.movieIdDelete(movieId: movieId), method: .delete, headers: headers)
+        AF.request(APIEndpoint.FavoriteMovies.movieIdDelete(movieId: movieId), method: .delete, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
